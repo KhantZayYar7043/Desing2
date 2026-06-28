@@ -15,7 +15,7 @@
             --gold-light: #fff3a8;
             --gold-dark: #b8860b;
             --dark-surface: #0f0f12;
-            --card-surface: #17171c;
+            --card-surface: #141417; /* Replit Styled Dark Card background */
         } 
 
         /* Custom Scrollbar */
@@ -33,7 +33,7 @@
         /* Header */
         header { 
             background-color: var(--dark-surface); 
-            padding: 18px 25px; 
+            padding: 15px 20px; 
             display: flex; 
             align-items: center; 
             justify-content: space-between; 
@@ -57,7 +57,7 @@
 
         .logo { 
             color: #fff; 
-            font-size: 24px; 
+            font-size: 22px; 
             font-weight: 800; 
             cursor: pointer; 
             letter-spacing: 0.5px;
@@ -71,18 +71,18 @@
             animation: goldRun 3s linear infinite;
         }
         
-        .search-box { display: flex; background: #222226; border-radius: 30px; padding: 4px 6px; width: 50%; max-width: 400px; border: 1px solid rgba(255,255,255,0.05); }
+        .search-box { display: flex; background: #222226; border-radius: 30px; padding: 3px 5px; width: 45%; max-width: 350px; border: 1px solid rgba(255,255,255,0.05); }
         .search-box input { 
             width: 100%; 
-            padding: 8px 15px; 
+            padding: 6px 12px; 
             border: none; 
             background: transparent; 
             color: #fff; 
             outline: none;
-            font-size: 14px;
+            font-size: 13px;
         }
         .search-box button { 
-            padding: 8px 22px; 
+            padding: 6px 18px; 
             border: none; 
             background: linear-gradient(135deg, #fff3a8, #ffd700, #b8860b); 
             background-size: 200% auto;
@@ -91,21 +91,20 @@
             border-radius: 25px; 
             font-weight: 700; 
             cursor: pointer; 
-            transition: transform 0.2s;
+            font-size: 13px;
         }
-        .search-box button:hover { transform: scale(1.03); }
 
         /* Container */
         .container { display: flex; flex: 1; position: relative; }
         
-        /* Sidebar */
+        /* Sidebar Menu */
         aside { 
-            width: 250px; 
+            width: 240px; 
             background-color: #0b0b0e; 
-            padding: 25px 15px; 
+            padding: 20px 12px; 
             display: flex; 
             flex-direction: column; 
-            gap: 10px; 
+            gap: 8px; 
             border-right: 1px solid rgba(255,255,255,0.02);
         }
         aside button { 
@@ -113,228 +112,195 @@
             border: none; 
             color: #a1a1aa; 
             text-align: left; 
-            padding: 14px 18px; 
+            padding: 12px 15px; 
             font-size: 14px; 
             font-weight: 500;
             cursor: pointer; 
-            border-radius: 4px; 
+            border-radius: 6px; 
             transition: all 0.2s ease;
         }
         aside button:hover {
             color: #fff;
             background: rgba(255, 255, 255, 0.03);
         }
-        /* Active Menu with Running Border Glow */
         aside button.active { 
             color: #000;
             font-weight: 700;
             background: linear-gradient(90deg, #fff3a8, #ffd700, #b8860b);
             background-size: 200% auto;
             animation: goldRun 3s linear infinite;
-            box-shadow: 0 4px 15px rgba(255, 215, 0, 0.2);
+            box-shadow: 0 4px 12px rgba(255, 215, 0, 0.15);
         }
 
         /* Main Content */
-        main { flex: 1; padding: 30px; background-color: #060608; }
-        .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 30px; }
+        main { flex: 1; padding: 20px; background-color: #060608; }
         
-        /* Video Card */
+        /* Replit Style Video Grid - Responsive 2 Columns on Mobile */
+        .grid { 
+            display: grid; 
+            grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); 
+            gap: 16px; 
+        }
+        
+        /* Replit UI Styled Video Card */
         .card { 
             background: var(--card-surface); 
-            border-radius: 8px; 
+            border-radius: 16px; /* Rounded corners as requested */
             overflow: hidden; 
             cursor: pointer; 
-            transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
-            box-shadow: 0 4px 12px rgba(0,0,0,0.3);
-            border: 1px solid rgba(255,255,255,0.02);
+            transition: transform 0.25s ease, box-shadow 0.25s ease;
+            border: 1px solid rgba(255,255,255,0.04);
+            display: flex;
+            flex-direction: column;
         }
         .card:hover { 
-            transform: translateY(-5px); 
-            box-shadow: 0 12px 25px rgba(0,0,0,0.5), 0 0 15px rgba(255, 215, 0, 0.2);
-            border-color: rgba(255, 215, 0, 0.3);
+            transform: translateY(-3px); 
+            box-shadow: 0 8px 20px rgba(0,0,0,0.6), 0 0 12px rgba(255, 215, 0, 0.15);
+            border-color: rgba(255, 215, 0, 0.25);
         }
-        .thumb-container { width: 100%; aspect-ratio: 16/9; background: #000; position: relative; }
-        .thumb-container img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.5s; }
-        .card:hover .thumb-container img { transform: scale(1.04); }
         
+        /* Replit Style Aspect Ratio and Image */
+        .thumb-container { 
+            width: 100%; 
+            aspect-ratio: 16/10; /* Slightly taller like standard Replit cards */
+            background: #000; 
+            position: relative; 
+            overflow: hidden;
+            border-radius: 16px 16px 0 0;
+        }
+        .thumb-container img { 
+            width: 100%; 
+            height: 100%; 
+            object-fit: cover; 
+        }
+        
+        /* Duration Badge Like Replit */
         .duration { 
             position: absolute; 
-            bottom: 10px; 
-            right: 10px; 
-            background: rgba(0, 0, 0, 0.85); 
-            padding: 3px 6px; 
+            bottom: 8px; 
+            right: 8px; 
+            background: rgba(0, 0, 0, 0.75); 
+            padding: 2px 6px; 
             font-size: 11px; 
-            border-radius: 3px; 
-            color: #ffd700; 
-            font-weight: 700;
-            border: 0.5px solid rgba(255,215,0,0.3);
+            border-radius: 6px; 
+            color: #fff; 
+            font-weight: 600;
         }
-        .info { padding: 16px; background: var(--card-surface); }
+        
+        /* Info Area Like Replit */
+        .info { padding: 12px; display: flex; flex-direction: column; gap: 4px; }
         .video-title { 
-            font-size: 14px; 
+            font-size: 13.5px; 
             font-weight: 500; 
-            line-height: 1.5; 
-            height: 42px; 
+            line-height: 1.4; 
+            height: 38px; 
             overflow: hidden; 
             display: -webkit-box; 
             -webkit-line-clamp: 2; 
             -webkit-box-orient: vertical; 
-            margin-bottom: 8px; 
-            color: #e4e4e7;
+            color: #efeff1;
         }
         .card:hover .video-title { color: #ffd700; }
-        .views { font-size: 12px; color: #71717a; }
+        .views { font-size: 11.5px; color: #9a9a9a; }
 
         /* Watch Section */
-        #watchSection { display: none; width: 100%; max-width: 1000px; margin: 0 auto; }
+        #watchSection { display: none; width: 100%; max-width: 900px; margin: 0 auto; }
         .back-btn { 
             background: #141416; 
             color: #e4e4e7; 
             border: 1px solid rgba(255,255,255,0.08); 
-            padding: 10px 22px; 
+            padding: 8px 18px; 
             border-radius: 30px; 
             cursor: pointer; 
             font-weight: 600; 
             font-size: 13px;
-            margin-bottom: 25px; 
+            margin-bottom: 20px; 
             display: inline-block; 
-            transition: all 0.2s;
         }
-        .back-btn:hover { 
-            background: #fff; 
-            color: #000; 
-        }
+        .back-btn:hover { background: #fff; color: #000; }
         .player-container { 
             width: 100%; 
             aspect-ratio: 16/9; 
             background: #000; 
-            border-radius: 8px; 
+            border-radius: 12px; 
             overflow: hidden; 
             box-shadow: 0 10px 30px rgba(0,0,0,0.7);
             border: 1px solid rgba(255, 215, 0, 0.1);
         }
         .player-container iframe { width: 100%; height: 100%; border: none; }
-        .watch-title { font-size: 20px; font-weight: 600; margin-top: 20px; color: #fff; } 
+        .watch-title { font-size: 18px; font-weight: 600; margin-top: 15px; color: #fff; } 
 
         /* Luxury Gold Run VIP Banner */
         .vip-neon-box {
-            margin-top: 30px;
-            padding: 25px;
+            margin-top: 25px;
+            padding: 22px;
             background: linear-gradient(135deg, #0f0f12, #17171c);
-            border-radius: 8px;
+            border-radius: 12px;
             text-align: center;
             position: relative;
-            box-shadow: 0 4px 20px rgba(0,0,0,0.4);
-            border: 1px solid transparent;
         }
-        /* Border Light Animation for VIP box */
         .vip-neon-box::before {
-            content: '';
-            position: absolute;
-            top: 0; left: 0; right: 0; bottom: 0;
-            border-radius: 8px;
-            padding: 1px;
-            background: linear-gradient(90deg, #b8860b, #ffd700, #fff3a8, #b8860b);
-            background-size: 300% 100%;
-            animation: goldRun 3s linear infinite;
-            -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
-            -webkit-mask-composite: xor;
-            mask-composite: exclude;
-            pointer-events: none;
+            content: ''; position: absolute; top: 0; left: 0; right: 0; bottom: 0; border-radius: 12px; padding: 1px;
+            background: linear-gradient(90deg, #b8860b, #ffd700, #fff3a8, #b8860b); background-size: 300% 100%; animation: goldRun 3s linear infinite;
+            -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0); -webkit-mask-composite: xor; mask-composite: exclude; pointer-events: none;
         }
 
-        .vip-neon-text {
-            font-size: 15px;
-            font-weight: 400;
-            line-height: 1.8;
-            color: #e4e4e7;
-            margin-bottom: 22px;
-        }
-        .vip-neon-text span.highlight {
-            color: #fff3a8;
-            font-weight: bold;
-            border-bottom: 1px dashed #ffd700;
-        }
+        .vip-neon-text { font-size: 14px; line-height: 1.7; color: #d4d4d8; margin-bottom: 18px; }
+        .vip-neon-text span.highlight { color: #fff3a8; font-weight: bold; border-bottom: 1px dashed #ffd700; }
         .vip-neon-text span.price {
-            background: linear-gradient(to right, #fff, #ffd700, #fff3a8);
-            background-size: 200% auto;
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            animation: goldRun 3s linear infinite;
-            font-weight: 800;
-            font-size: 19px;
+            background: linear-gradient(to right, #fff, #ffd700, #fff3a8); background-size: 200% auto;
+            -webkit-background-clip: text; -webkit-text-fill-color: transparent; animation: goldRun 3s linear infinite;
+            font-weight: 800; font-size: 18px;
         }
 
-        /* Super Bright Gold Running Button */
         .vip-btn {
-            display: inline-block;
-            padding: 14px 50px;
-            font-size: 15px;
-            font-weight: 800;
-            color: #000;
-            text-decoration: none;
-            border-radius: 4px;
-            background: linear-gradient(-45deg, #ffd700, #fff, #b8860b, #ffd700, #fff);
-            background-size: 300% 300%;
-            animation: goldRun 3s linear infinite;
-            box-shadow: 0 0 15px rgba(255, 215, 0, 0.4);
-            transition: all 0.2s ease;
+            display: inline-block; padding: 12px 45px; font-size: 14px; font-weight: 800; color: #000; text-decoration: none; border-radius: 6px;
+            background: linear-gradient(-45deg, #ffd700, #fff, #b8860b, #ffd700); background-size: 300% 300%; animation: goldRun 3s linear infinite;
+            box-shadow: 0 0 15px rgba(255, 215, 0, 0.3); transition: transform 0.2s;
         }
-        .vip-btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 0 25px rgba(255, 215, 0, 0.7);
-        }
+        .vip-btn:hover { transform: translateY(-2px); box-shadow: 0 0 20px rgba(255, 215, 0, 0.5); }
 
         /* Load More Button */
         .load-more-btn { 
-            display: block; 
-            width: 200px; 
-            margin: 40px auto; 
-            padding: 13px; 
-            background: #141416; 
-            color: #fff; 
-            border: 1px solid rgba(255,255,255,0.08); 
-            border-radius: 4px; 
-            font-weight: 600; 
-            font-size: 14px; 
-            cursor: pointer; 
-            transition: all 0.2s;
+            display: block; width: 180px; margin: 30px auto; padding: 12px; background: #141416; color: #fff; 
+            border: 1px solid rgba(255,255,255,0.08); border-radius: 8px; font-weight: 600; font-size: 13px; cursor: pointer; 
         }
         .load-more-btn:hover { background: #fff; color: #000; } 
 
         /* Warning Modal Popup */
         .modal { display: flex; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(3, 3, 5, 0.95); z-index: 1000; justify-content: center; align-items: center; padding: 20px; }
-        .modal-content { 
-            background: var(--dark-surface); 
-            padding: 40px 30px; 
-            border-radius: 8px; 
-            max-width: 425px; 
-            text-align: center; 
-            position: relative;
-        }
+        .modal-content { background: var(--dark-surface); padding: 35px 25px; border-radius: 12px; max-width: 400px; text-align: center; position: relative; }
         .modal-content::before {
-            content: ''; position: absolute; top: 0; left: 0; right: 0; bottom: 0; border-radius: 8px; padding: 1.5px;
+            content: ''; position: absolute; top: 0; left: 0; right: 0; bottom: 0; border-radius: 12px; padding: 1.5px;
             background: linear-gradient(90deg, #ffd700, #b8860b, #ffd700); background-size: 200% 100%; animation: goldRun 3s linear infinite;
             -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0); -webkit-mask-composite: xor; mask-composite: exclude; pointer-events: none;
         }
-        .modal-content h2 { color: #ffd700; margin-bottom: 12px; font-size: 22px; text-shadow: 0 0 10px rgba(255,215,0,0.2); }
-        .modal-content p { font-size: 14px; line-height: 1.6; margin-bottom: 25px; color: #a1a1aa; }
+        .modal-content h2 { color: #ffd700; margin-bottom: 10px; font-size: 20px; }
+        .modal-content p { font-size: 13.5px; line-height: 1.6; margin-bottom: 22px; color: #a1a1aa; }
         .modal-content button { 
-            background: linear-gradient(135deg, #fff3a8, #ffd700, #b8860b); 
-            background-size: 200% auto;
-            animation: goldRun 3s linear infinite;
-            color: #000; border: none; padding: 12px 45px; font-size: 15px; font-weight: 700; border-radius: 4px; cursor: pointer; 
+            background: linear-gradient(135deg, #fff3a8, #ffd700, #b8860b); background-size: 200% auto; animation: goldRun 3s linear infinite;
+            color: #000; border: none; padding: 10px 40px; font-size: 14px; font-weight: 700; border-radius: 6px; cursor: pointer; 
         }
 
-        /* Responsive UI Mobile */
+        /* Responsive UI Mobile - Replit Grid Layout */
         @media (max-width: 768px) {
             .container { flex-direction: column; }
-            aside { width: 100%; flex-direction: row; overflow-x: auto; padding: 10px; gap: 6px; border-right: none; border-bottom: 1px solid rgba(255,255,255,0.03); }
-            aside button { padding: 8px 16px; font-size: 13px; shrink: 0; white-space: nowrap; border-radius: 4px; }
-            aside button.active { border-radius: 4px; box-shadow: none; }
-            .search-box { width: 55%; }
-            main { padding: 15px; }
-            .grid { gap: 15px; }
+            aside { width: 100%; flex-direction: row; overflow-x: auto; padding: 8px; gap: 6px; border-right: none; border-bottom: 1px solid rgba(255,255,255,0.03); }
+            aside button { padding: 6px 12px; font-size: 12.5px; shrink: 0; white-space: nowrap; border-radius: 6px; }
+            aside button.active { border-radius: 6px; box-shadow: none; }
+            .search-box { width: 50%; }
+            main { padding: 12px; }
+            
+            /* CRITICAL: Forces 2 Columns on Mobile View like the Replit screenshot */
+            .grid { 
+                grid-template-columns: repeat(2, 1fr) !important; 
+                gap: 12px; 
+            }
+            .card { border-radius: 12px; }
+            .thumb-container { border-radius: 12px 12px 0 0; }
+            .video-title { font-size: 12px; height: 34px; line-height: 1.4; margin-bottom: 2px; }
+            .views { font-size: 10.5px; }
+            .duration { font-size: 10px; padding: 1px 4px; border-radius: 4px; bottom: 6px; right: 6px; }
         }
     </style> 
 
@@ -342,7 +308,6 @@
 </head>
 <body> 
 
-    <!-- Warning Modal Popup -->
     <div id="entryModal" class="modal">
         <div class="modal-content">
             <h2>⚠️ သတိပေးချက်</h2>
@@ -361,7 +326,6 @@
 
     <div class="container">
         <aside>
-            <!-- မြန်မာစာတန်းထိုး ဖြုတ်ထားပါသည် -->
             <button onclick="filterCategory('myanmar', this)" class="active">မြန်မာကားများ</button>
             <button onclick="filterCategory('asian', this)" >အာရှ</button>
             <button onclick="filterCategory('japanese', this)">ဂျပန်</button>
@@ -382,7 +346,6 @@
                 </div>
                 <div class="watch-title" id="videoTitle"></div>
 
-                <!-- Gold Style VIP Banner Included -->
                 <div class="vip-neon-box">
                     <div class="vip-neon-text">
                         မြန်မာချောင်းရိုက် // ကလေး အောကား // ဆယ်လီ အောကား // local leak // အထန်မလေးတွေ တစ်နေရာတည်းမှာ အစုံအလင်ကြည့်ဖို့ <span class="price">15000ks</span> ထဲဖြင့် <span class="highlight">Vip ဝင်နိုင်ပါပြီ</span>
@@ -406,17 +369,14 @@
         const videoTitle = document.getElementById('videoTitle');
         const loadMoreBtn = document.getElementById('loadMoreBtn'); 
 
-        // Function to generate a Random Page Number to mix videos on refresh
         function getRandomPage() {
-            // Generates a random page between 1 and 15 to get varied content
             return Math.floor(Math.random() * 15) + 1;
         }
 
         async function fetchVideos(query = 'myanmar', append = false) {
             if (!append) { 
-                // Every time a user clicks a category or refreshes, pick a random page
                 page = getRandomPage();
-                videoGrid.innerHTML = '<p style="padding:20px; color:var(--gold-primary); font-weight:600;">ဗီဒီယိုများ အသစ်ပြောင်းလဲဆွဲယူနေပါသည်...</p>'; 
+                videoGrid.innerHTML = '<p style="padding:20px; color:var(--gold-primary); font-weight:600; font-size:14px;">ဗီဒီယိုများ အသစ်ပြောင်းလဲဆွဲယူနေပါသည်...</p>'; 
             }
             try {
                 const searchKeyword = query ? query : 'myanmar';
@@ -427,17 +387,16 @@
                 if (!append) videoGrid.innerHTML = ''; 
 
                 if (data && data.videos && data.videos.length > 0) {
-                    // Randomize the order of the 24 videos returned from API
                     let shuffledVideos = data.videos.sort(() => Math.random() - 0.5);
                     renderCards(shuffledVideos);
                     loadMoreBtn.style.display = 'block';
                 } else {
-                    if (!append) videoGrid.innerHTML = '<p style="padding:20px; color:#71717a;">ဗီဒီယို ရှာမတွေ့ပါ။</p>';
+                    if (!append) videoGrid.innerHTML = '<p style="padding:20px; color:#71717a; font-size:14px;">ဗီဒီယို ရှာမတွေ့ပါ။</p>';
                     loadMoreBtn.style.display = 'none';
                 }
             } catch (err) {
                 console.error(err);
-                if (!append) videoGrid.innerHTML = '<p style="padding:20px; color:var(--gold-primary);">Error: အချက်အလက်ယူလို့မရပါ။ VPN ဖွင့်ထားဖို့ လိုအပ်ပါသည်။</p>';
+                if (!append) videoGrid.innerHTML = '<p style="padding:20px; color:var(--gold-primary); font-size:14px;">Error: အချက်အလက်ယူလို့မရပါ။ VPN ဖွင့်ထားဖို့ လိုအပ်ပါသည်။</p>';
             }
         } 
 
@@ -445,73 +404,4 @@
             videos.forEach(v => {
                 const card = document.createElement('div');
                 card.className = 'card';
-                const imgUrl = v.default_thumb ? v.default_thumb.src : (v.thumbs && v.thumbs.length > 0 ? v.thumbs[0].src : ''); 
-
-                card.innerHTML = `
-                    <div class="thumb-container">
-                        <img src="${imgUrl}" alt="${v.title}" loading="lazy">
-                        <span class="duration">${v.length_min || '00'}:${v.length_sec || '00'}</span>
-                    </div>
-                    <div class="info">
-                        <div class="video-title">${v.title}</div>
-                        <div class="views">👁️ ${parseInt(v.views).toLocaleString()} ကြည့်ရှုသူ</div>
-                    </div>
-                `;
-                card.onclick = () => openWatchPage(v.embed, v.title);
-                videoGrid.appendChild(card);
-            });
-        } 
-
-        function openWatchPage(embedUrl, title) {
-            gallerySection.style.display = 'none';
-            watchSection.style.display = 'block';
-            videoPlayer.src = embedUrl;
-            videoTitle.innerText = title;
-            window.scrollTo({ top: 0, behavior: 'smooth' });
-        } 
-
-        function goHome() {
-            watchSection.style.display = 'none';
-            videoPlayer.src = '';
-            gallerySection.style.display = 'block';
-        } 
-
-        function filterCategory(cat, btn) {
-            document.querySelectorAll('aside button').forEach(b => b.classList.remove('active'));
-            btn.classList.add('active');
-            currentQuery = cat;
-            goHome();
-            fetchVideos(currentQuery, false);
-        } 
-
-        function handleSearch() {
-            const val = document.getElementById('searchInput').value.trim();
-            currentQuery = val;
-            goHome();
-            fetchVideos(currentQuery, false);
-        } 
-
-        function loadMore() {
-            page++; // Increments naturally when clicking load more
-            fetchVideos(currentQuery, true);
-        } 
-
-        // LocalStorage Key unique to Project 2 (Luxury Gold Edition)
-        const entryModal = document.getElementById('entryModal');
-        const agreeBtn = document.getElementById('agreeBtn');
-        const seen = localStorage.getItem('pyawpyawgyi:gold_premium_agree'); 
-
-        if (seen) { entryModal.style.display = 'none'; } 
-
-        agreeBtn.addEventListener('click', () => {
-            localStorage.setItem('pyawpyawgyi:gold_premium_agree', '1');
-            entryModal.style.display = 'none';
-        }); 
-
-        // Initial Load
-        fetchVideos('myanmar', false);
-    </script> 
-
-    <script src="https://pl30107276.effectivecpmnetwork.com/37/1c/80/371c80a1b65f943d7ece088ba43c32c2.js"></script>
-</body>
-</html>
+                const imgUrl = v.default_thumb ? v.default
