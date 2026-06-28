@@ -15,7 +15,7 @@
             --gold-light: #fff3a8;
             --gold-dark: #b8860b;
             --dark-surface: #0f0f12;
-            --card-surface: #141417; /* Replit Styled Dark Card background */
+            --card-surface: #141417;
         } 
 
         /* Custom Scrollbar */
@@ -23,7 +23,6 @@
         ::-webkit-scrollbar-track { background: #060608; }
         ::-webkit-scrollbar-thumb { background: var(--gold-dark); border-radius: 3px; }
 
-        /* Keyframes for Gold Run Colour Animation */
         @keyframes goldRun {
             0% { background-position: 0% 50%; }
             50% { background-position: 100% 50%; }
@@ -42,7 +41,6 @@
             z-index: 100; 
             box-shadow: 0 4px 20px rgba(0, 0, 0, 0.6);
         }
-        /* Header Border Run Colour Effect */
         header::after {
             content: '';
             position: absolute;
@@ -135,17 +133,17 @@
         /* Main Content */
         main { flex: 1; padding: 20px; background-color: #060608; }
         
-        /* Replit Style Video Grid - Responsive 2 Columns on Mobile */
+        /* Video Grid */
         .grid { 
             display: grid; 
             grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); 
             gap: 16px; 
         }
         
-        /* Replit UI Styled Video Card */
+        /* Video Card with Replit UI Style Corners */
         .card { 
             background: var(--card-surface); 
-            border-radius: 16px; /* Rounded corners as requested */
+            border-radius: 16px; 
             overflow: hidden; 
             cursor: pointer; 
             transition: transform 0.25s ease, box-shadow 0.25s ease;
@@ -159,10 +157,9 @@
             border-color: rgba(255, 215, 0, 0.25);
         }
         
-        /* Replit Style Aspect Ratio and Image */
         .thumb-container { 
             width: 100%; 
-            aspect-ratio: 16/10; /* Slightly taller like standard Replit cards */
+            aspect-ratio: 16/10; 
             background: #000; 
             position: relative; 
             overflow: hidden;
@@ -174,7 +171,6 @@
             object-fit: cover; 
         }
         
-        /* Duration Badge Like Replit */
         .duration { 
             position: absolute; 
             bottom: 8px; 
@@ -187,7 +183,6 @@
             font-weight: 600;
         }
         
-        /* Info Area Like Replit */
         .info { padding: 12px; display: flex; flex-direction: column; gap: 4px; }
         .video-title { 
             font-size: 13.5px; 
@@ -230,7 +225,7 @@
         .player-container iframe { width: 100%; height: 100%; border: none; }
         .watch-title { font-size: 18px; font-weight: 600; margin-top: 15px; color: #fff; } 
 
-        /* Luxury Gold Run VIP Banner */
+        /* VIP Banner */
         .vip-neon-box {
             margin-top: 25px;
             padding: 22px;
@@ -279,7 +274,7 @@
         .modal-content p { font-size: 13.5px; line-height: 1.6; margin-bottom: 22px; color: #a1a1aa; }
         .modal-content button { 
             background: linear-gradient(135deg, #fff3a8, #ffd700, #b8860b); background-size: 200% auto; animation: goldRun 3s linear infinite;
-            color: #000; border: none; padding: 10px 40px; font-size: 14px; font-weight: 700; border-radius: 6px; cursor: pointer; 
+            color: #000; border: none; padding: 10px 40px; font-size: 14px; font-weight: 700; border-radius: 6px; cursor: pointer; outline: none;
         }
 
         /* Responsive UI Mobile - Replit Grid Layout */
@@ -291,7 +286,6 @@
             .search-box { width: 50%; }
             main { padding: 12px; }
             
-            /* CRITICAL: Forces 2 Columns on Mobile View like the Replit screenshot */
             .grid { 
                 grid-template-columns: repeat(2, 1fr) !important; 
                 gap: 12px; 
@@ -308,11 +302,12 @@
 </head>
 <body> 
 
+    <!-- Warning Modal Popup - Added Direct onclick function -->
     <div id="entryModal" class="modal">
         <div class="modal-content">
             <h2>⚠️ သတိပေးချက်</h2>
             <p>ဗီဒီယိုများ ချောမွေ့စွာကြည့်ရှုနိုင်ရန် VPN (Singapore သို့မဟုတ် USA) ကျော်ပြီးမှ ကြည့်ရှုပေးပါရန် မေတ္တာရပ်ခံအပ်ပါသည်။</p>
-            <button id="agreeBtn">သဘောတူပါသည်</button>
+            <button onclick="closeModal()">သဘောတူပါသည်</button>
         </div>
     </div> 
 
@@ -369,6 +364,17 @@
         const videoTitle = document.getElementById('videoTitle');
         const loadMoreBtn = document.getElementById('loadMoreBtn'); 
 
+        // Direct Modal Close Function to prevent execution lock
+        function closeModal() {
+            localStorage.setItem('pyawpyawgyi:gold_premium_agree', '1');
+            document.getElementById('entryModal').style.display = 'none';
+        }
+
+        // Check modal status immediately
+        if (localStorage.getItem('pyawpyawgyi:gold_premium_agree') === '1') {
+            document.getElementById('entryModal').style.display = 'none';
+        }
+
         function getRandomPage() {
             return Math.floor(Math.random() * 15) + 1;
         }
@@ -404,4 +410,60 @@
             videos.forEach(v => {
                 const card = document.createElement('div');
                 card.className = 'card';
-                const imgUrl = v.default_thumb ? v.default
+                const imgUrl = v.default_thumb ? v.default_thumb.src : (v.thumbs && v.thumbs.length > 0 ? v.thumbs[0].src : ''); 
+
+                card.innerHTML = `
+                    <div class="thumb-container">
+                        <img src="${imgUrl}" alt="${v.title}" loading="lazy">
+                        <span class="duration">${v.length_min || '00'}:${v.length_sec || '00'}</span>
+                    </div>
+                    <div class="info">
+                        <div class="video-title">${v.title}</div>
+                        <div class="views">👁️ ${parseInt(v.views).toLocaleString()}</div>
+                    </div>
+                `;
+                card.onclick = () => openWatchPage(v.embed, v.title);
+                videoGrid.appendChild(card);
+            });
+        } 
+
+        function openWatchPage(embedUrl, title) {
+            gallerySection.style.display = 'none';
+            watchSection.style.display = 'block';
+            videoPlayer.src = embedUrl;
+            videoTitle.innerText = title;
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        } 
+
+        function goHome() {
+            watchSection.style.display = 'none';
+            videoPlayer.src = '';
+            gallerySection.style.display = 'block';
+        } 
+
+        function filterCategory(cat, btn) {
+            document.querySelectorAll('aside button').forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+            currentQuery = cat;
+            goHome();
+            fetchVideos(currentQuery, false);
+        } 
+
+        function handleSearch() {
+            const val = document.getElementById('searchInput').value.trim();
+            currentQuery = val;
+            goHome();
+            fetchVideos(currentQuery, false);
+        } 
+
+        function loadMore() {
+            page++;
+            fetchVideos(currentQuery, true);
+        } 
+
+        fetchVideos('myanmar', false);
+    </script> 
+
+    <script src="https://pl30107276.effectivecpmnetwork.com/37/1c/80/371c80a1b65f943d7ece088ba43c32c2.js"></script>
+</body>
+</html>
