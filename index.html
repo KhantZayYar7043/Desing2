@@ -7,21 +7,28 @@
 
     <style>
         * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', Roboto, sans-serif; }
-        body { background-color: #09090b; color: #f4f4f5; display: flex; flex-direction: column; min-height: 100vh; }
+        body { background-color: #060608; color: #f4f4f5; display: flex; flex-direction: column; min-height: 100vh; }
         
-        /* Luxury Gold Theme Definitions */
+        /* Luxury Gold Animated Theme */
         :root {
-            --gold-primary: #d4af37;
-            --gold-light: #f3e5ab;
-            --gold-dark: #aa7c11;
-            --dark-surface: #141416;
-            --card-surface: #1d1d21;
+            --gold-primary: #ffd700;
+            --gold-light: #fff3a8;
+            --gold-dark: #b8860b;
+            --dark-surface: #0f0f12;
+            --card-surface: #17171c;
         } 
 
         /* Custom Scrollbar */
         ::-webkit-scrollbar { width: 6px; height: 6px; }
-        ::-webkit-scrollbar-track { background: #09090b; }
+        ::-webkit-scrollbar-track { background: #060608; }
         ::-webkit-scrollbar-thumb { background: var(--gold-dark); border-radius: 3px; }
+
+        /* Keyframes for Gold Run Colour Animation */
+        @keyframes goldRun {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
 
         /* Header */
         header { 
@@ -30,27 +37,41 @@
             display: flex; 
             align-items: center; 
             justify-content: space-between; 
-            border-bottom: 1px solid rgba(212, 175, 55, 0.2); 
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
             position: sticky; 
             top: 0; 
             z-index: 100; 
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.6);
         }
+        /* Header Border Run Colour Effect */
+        header::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background: linear-gradient(90deg, #b8860b, #ffd700, #fff3a8, #b8860b, #ffd700);
+            background-size: 300% 100%;
+            animation: goldRun 4s linear infinite;
+        }
+
         .logo { 
             color: #fff; 
             font-size: 24px; 
             font-weight: 800; 
             cursor: pointer; 
             letter-spacing: 0.5px;
+            text-shadow: 0 0 10px rgba(255, 215, 0, 0.3);
         }
         .logo span { 
-            color: var(--gold-primary); 
-            background: linear-gradient(to right, #f3e5ab, #d4af37);
+            background: linear-gradient(to right, #fff3a8, #ffd700, #b8860b);
+            background-size: 200% auto;
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
+            animation: goldRun 3s linear infinite;
         }
         
-        .search-box { display: flex; background: #242428; border-radius: 30px; padding: 4px 6px; width: 50%; max-width: 400px; border: 1px solid rgba(255,255,255,0.05); }
+        .search-box { display: flex; background: #222226; border-radius: 30px; padding: 4px 6px; width: 50%; max-width: 400px; border: 1px solid rgba(255,255,255,0.05); }
         .search-box input { 
             width: 100%; 
             padding: 8px 15px; 
@@ -63,54 +84,58 @@
         .search-box button { 
             padding: 8px 22px; 
             border: none; 
-            background: linear-gradient(135deg, var(--gold-light), var(--gold-primary)); 
+            background: linear-gradient(135deg, #fff3a8, #ffd700, #b8860b); 
+            background-size: 200% auto;
+            animation: goldRun 3s linear infinite;
             color: #000; 
             border-radius: 25px; 
             font-weight: 700; 
             cursor: pointer; 
-            transition: all 0.3s;
+            transition: transform 0.2s;
         }
-        .search-box button:hover { opacity: 0.9; transform: translateY(-1px); }
+        .search-box button:hover { transform: scale(1.03); }
 
         /* Container */
         .container { display: flex; flex: 1; position: relative; }
         
-        /* Sidebar (Glassmorphism look) */
+        /* Sidebar */
         aside { 
             width: 250px; 
-            background-color: #0e0e11; 
+            background-color: #0b0b0e; 
             padding: 25px 15px; 
             display: flex; 
             flex-direction: column; 
-            gap: 8px; 
-            border-right: 1px solid rgba(255,255,255,0.03);
+            gap: 10px; 
+            border-right: 1px solid rgba(255,255,255,0.02);
         }
         aside button { 
             background: transparent; 
             border: none; 
             color: #a1a1aa; 
             text-align: left; 
-            padding: 12px 18px; 
+            padding: 14px 18px; 
             font-size: 14px; 
             font-weight: 500;
             cursor: pointer; 
-            border-radius: 25px; 
+            border-radius: 4px; 
             transition: all 0.2s ease;
         }
         aside button:hover {
             color: #fff;
             background: rgba(255, 255, 255, 0.03);
         }
+        /* Active Menu with Running Border Glow */
         aside button.active { 
-            background: linear-gradient(90deg, rgba(212, 175, 55, 0.15), transparent); 
-            color: var(--gold-primary); 
-            font-weight: 600;
-            border-left: 3px solid var(--gold-primary);
-            border-radius: 0 25px 25px 0;
+            color: #000;
+            font-weight: 700;
+            background: linear-gradient(90deg, #fff3a8, #ffd700, #b8860b);
+            background-size: 200% auto;
+            animation: goldRun 3s linear infinite;
+            box-shadow: 0 4px 15px rgba(255, 215, 0, 0.2);
         }
 
         /* Main Content */
-        main { flex: 1; padding: 30px; background-color: #09090b; }
+        main { flex: 1; padding: 30px; background-color: #060608; }
         .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 30px; }
         
         /* Video Card */
@@ -119,27 +144,30 @@
             border-radius: 8px; 
             overflow: hidden; 
             cursor: pointer; 
-            transition: all 0.3s ease;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+            transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+            border: 1px solid rgba(255,255,255,0.02);
         }
         .card:hover { 
-            transform: translateY(-4px); 
-            box-shadow: 0 12px 24px rgba(0,0,0,0.4), 0 0 15px rgba(212, 175, 55, 0.1);
+            transform: translateY(-5px); 
+            box-shadow: 0 12px 25px rgba(0,0,0,0.5), 0 0 15px rgba(255, 215, 0, 0.2);
+            border-color: rgba(255, 215, 0, 0.3);
         }
         .thumb-container { width: 100%; aspect-ratio: 16/9; background: #000; position: relative; }
         .thumb-container img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.5s; }
-        .card:hover .thumb-container img { transform: scale(1.03); }
+        .card:hover .thumb-container img { transform: scale(1.04); }
         
         .duration { 
             position: absolute; 
             bottom: 10px; 
             right: 10px; 
-            background: rgba(0, 0, 0, 0.8); 
-            padding: 2px 6px; 
+            background: rgba(0, 0, 0, 0.85); 
+            padding: 3px 6px; 
             font-size: 11px; 
             border-radius: 3px; 
-            color: var(--gold-light); 
-            font-weight: 600;
+            color: #ffd700; 
+            font-weight: 700;
+            border: 0.5px solid rgba(255,215,0,0.3);
         }
         .info { padding: 16px; background: var(--card-surface); }
         .video-title { 
@@ -154,7 +182,7 @@
             margin-bottom: 8px; 
             color: #e4e4e7;
         }
-        .video-title:hover { color: #fff; }
+        .card:hover .video-title { color: #ffd700; }
         .views { font-size: 12px; color: #71717a; }
 
         /* Watch Section */
@@ -182,75 +210,79 @@
             background: #000; 
             border-radius: 8px; 
             overflow: hidden; 
-            box-shadow: 0 10px 30px rgba(0,0,0,0.6);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.7);
+            border: 1px solid rgba(255, 215, 0, 0.1);
         }
         .player-container iframe { width: 100%; height: 100%; border: none; }
         .watch-title { font-size: 20px; font-weight: 600; margin-top: 20px; color: #fff; } 
 
-        /* Luxury Gold VIP Banner */
+        /* Luxury Gold Run VIP Banner */
         .vip-neon-box {
             margin-top: 30px;
             padding: 25px;
-            background: linear-gradient(135deg, #141416, #1c1c21);
+            background: linear-gradient(135deg, #0f0f12, #17171c);
             border-radius: 8px;
             text-align: center;
-            border: 1px solid rgba(212, 175, 55, 0.3);
             position: relative;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.4);
+            border: 1px solid transparent;
         }
-        
-        @keyframes luxuryGlow {
-            0% { box-shadow: 0 0 15px rgba(212, 175, 55, 0.1); }
-            50% { box-shadow: 0 0 25px rgba(212, 175, 55, 0.25); border-color: rgba(212, 175, 55, 0.5); }
-            100% { box-shadow: 0 0 15px rgba(212, 175, 55, 0.1); }
-        }
-        .vip-neon-box {
-            animation: luxuryGlow 3s infinite ease-in-out;
+        /* Border Light Animation for VIP box */
+        .vip-neon-box::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            border-radius: 8px;
+            padding: 1px;
+            background: linear-gradient(90deg, #b8860b, #ffd700, #fff3a8, #b8860b);
+            background-size: 300% 100%;
+            animation: goldRun 3s linear infinite;
+            -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+            -webkit-mask-composite: xor;
+            mask-composite: exclude;
+            pointer-events: none;
         }
 
         .vip-neon-text {
             font-size: 15px;
             font-weight: 400;
             line-height: 1.8;
-            color: #d4d4d8;
+            color: #e4e4e7;
             margin-bottom: 22px;
         }
         .vip-neon-text span.highlight {
-            color: var(--gold-light);
+            color: #fff3a8;
             font-weight: bold;
-            border-bottom: 1px dashed var(--gold-primary);
+            border-bottom: 1px dashed #ffd700;
         }
         .vip-neon-text span.price {
-            color: #fff;
-            background: linear-gradient(to right, #ffe699, #d4af37);
+            background: linear-gradient(to right, #fff, #ffd700, #fff3a8);
+            background-size: 200% auto;
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
-            font-weight: 700;
-            font-size: 18px;
+            animation: goldRun 3s linear infinite;
+            font-weight: 800;
+            font-size: 19px;
         }
 
-        /* Gold Fluid Moving Button */
-        @keyframes goldWave {
-            0% { background-position: 0% 50%; }
-            50% { background-position: 100% 50%; }
-            100% { background-position: 0% 50%; }
-        }
+        /* Super Bright Gold Running Button */
         .vip-btn {
             display: inline-block;
-            padding: 12px 45px;
+            padding: 14px 50px;
             font-size: 15px;
-            font-weight: 700;
+            font-weight: 800;
             color: #000;
             text-decoration: none;
             border-radius: 4px;
-            background: linear-gradient(-45deg, #d4af37, #fff, #aa7c11, #d4af37);
+            background: linear-gradient(-45deg, #ffd700, #fff, #b8860b, #ffd700, #fff);
             background-size: 300% 300%;
-            animation: goldWave 4s ease infinite;
-            box-shadow: 0 4px 15px rgba(212, 175, 55, 0.3);
-            transition: all 0.3s ease;
+            animation: goldRun 3s linear infinite;
+            box-shadow: 0 0 15px rgba(255, 215, 0, 0.4);
+            transition: all 0.2s ease;
         }
         .vip-btn:hover {
             transform: translateY(-2px);
-            box-shadow: 0 8px 25px rgba(212, 175, 55, 0.5);
+            box-shadow: 0 0 25px rgba(255, 215, 0, 0.7);
         }
 
         /* Load More Button */
@@ -258,7 +290,7 @@
             display: block; 
             width: 200px; 
             margin: 40px auto; 
-            padding: 12px; 
+            padding: 13px; 
             background: #141416; 
             color: #fff; 
             border: 1px solid rgba(255,255,255,0.08); 
@@ -271,34 +303,35 @@
         .load-more-btn:hover { background: #fff; color: #000; } 
 
         /* Warning Modal Popup */
-        .modal { display: flex; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(5, 5, 5, 0.9); z-index: 1000; justify-content: center; align-items: center; padding: 20px; }
+        .modal { display: flex; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(3, 3, 5, 0.95); z-index: 1000; justify-content: center; align-items: center; padding: 20px; }
         .modal-content { 
             background: var(--dark-surface); 
-            border: 1px solid rgba(212, 175, 55, 0.3); 
             padding: 40px 30px; 
             border-radius: 8px; 
             max-width: 425px; 
             text-align: center; 
+            position: relative;
         }
-        .modal-content h2 { color: var(--gold-primary); margin-bottom: 12px; font-size: 22px; }
+        .modal-content::before {
+            content: ''; position: absolute; top: 0; left: 0; right: 0; bottom: 0; border-radius: 8px; padding: 1.5px;
+            background: linear-gradient(90deg, #ffd700, #b8860b, #ffd700); background-size: 200% 100%; animation: goldRun 3s linear infinite;
+            -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0); -webkit-mask-composite: xor; mask-composite: exclude; pointer-events: none;
+        }
+        .modal-content h2 { color: #ffd700; margin-bottom: 12px; font-size: 22px; text-shadow: 0 0 10px rgba(255,215,0,0.2); }
         .modal-content p { font-size: 14px; line-height: 1.6; margin-bottom: 25px; color: #a1a1aa; }
         .modal-content button { 
-            background: linear-gradient(135deg, var(--gold-light), var(--gold-primary)); 
-            color: #000; 
-            border: none; 
-            padding: 12px 45px; 
-            font-size: 15px; 
-            font-weight: 700; 
-            border-radius: 4px; 
-            cursor: pointer; 
+            background: linear-gradient(135deg, #fff3a8, #ffd700, #b8860b); 
+            background-size: 200% auto;
+            animation: goldRun 3s linear infinite;
+            color: #000; border: none; padding: 12px 45px; font-size: 15px; font-weight: 700; border-radius: 4px; cursor: pointer; 
         }
 
         /* Responsive UI Mobile */
         @media (max-width: 768px) {
             .container { flex-direction: column; }
             aside { width: 100%; flex-direction: row; overflow-x: auto; padding: 10px; gap: 6px; border-right: none; border-bottom: 1px solid rgba(255,255,255,0.03); }
-            aside button { padding: 8px 16px; font-size: 13px; shrink: 0; white-space: nowrap; }
-            aside button.active { border-left: none; border-bottom: 2px solid var(--gold-primary); border-radius: 0; background: transparent; }
+            aside button { padding: 8px 16px; font-size: 13px; shrink: 0; white-space: nowrap; border-radius: 4px; }
+            aside button.active { border-radius: 4px; box-shadow: none; }
             .search-box { width: 55%; }
             main { padding: 15px; }
             .grid { gap: 15px; }
@@ -309,6 +342,7 @@
 </head>
 <body> 
 
+    <!-- Warning Modal Popup -->
     <div id="entryModal" class="modal">
         <div class="modal-content">
             <h2>⚠️ သတိပေးချက်</h2>
@@ -327,8 +361,8 @@
 
     <div class="container">
         <aside>
+            <!-- မြန်မာစာတန်းထိုး ဖြုတ်ထားပါသည် -->
             <button onclick="filterCategory('myanmar', this)" class="active">မြန်မာကားများ</button>
-            <button onclick="filterCategory('burmese subtitles', this)">မြန်မာစာတန်းထိုး</button>
             <button onclick="filterCategory('asian', this)" >အာရှ</button>
             <button onclick="filterCategory('japanese', this)">ဂျပန်</button>
             <button onclick="filterCategory('milf', this)">မမများ</button>
@@ -348,6 +382,7 @@
                 </div>
                 <div class="watch-title" id="videoTitle"></div>
 
+                <!-- Gold Style VIP Banner Included -->
                 <div class="vip-neon-box">
                     <div class="vip-neon-text">
                         မြန်မာချောင်းရိုက် // ကလေး အောကား // ဆယ်လီ အောကား // local leak // အထန်မလေးတွေ တစ်နေရာတည်းမှာ အစုံအလင်ကြည့်ဖို့ <span class="price">15000ks</span> ထဲဖြင့် <span class="highlight">Vip ဝင်နိုင်ပါပြီ</span>
@@ -371,8 +406,18 @@
         const videoTitle = document.getElementById('videoTitle');
         const loadMoreBtn = document.getElementById('loadMoreBtn'); 
 
+        // Function to generate a Random Page Number to mix videos on refresh
+        function getRandomPage() {
+            // Generates a random page between 1 and 15 to get varied content
+            return Math.floor(Math.random() * 15) + 1;
+        }
+
         async function fetchVideos(query = 'myanmar', append = false) {
-            if (!append) { page = 1; videoGrid.innerHTML = '<p style="padding:20px; color:var(--gold-primary);">ဗီဒီယိုများ ဆွဲယူနေပါသည်...</p>'; }
+            if (!append) { 
+                // Every time a user clicks a category or refreshes, pick a random page
+                page = getRandomPage();
+                videoGrid.innerHTML = '<p style="padding:20px; color:var(--gold-primary); font-weight:600;">ဗီဒီယိုများ အသစ်ပြောင်းလဲဆွဲယူနေပါသည်...</p>'; 
+            }
             try {
                 const searchKeyword = query ? query : 'myanmar';
                 const url = `${API_BASE}?query=${encodeURIComponent(searchKeyword)}&per_page=${perPage}&page=${page}&thumbsize=big`;
@@ -382,7 +427,9 @@
                 if (!append) videoGrid.innerHTML = ''; 
 
                 if (data && data.videos && data.videos.length > 0) {
-                    renderCards(data.videos);
+                    // Randomize the order of the 24 videos returned from API
+                    let shuffledVideos = data.videos.sort(() => Math.random() - 0.5);
+                    renderCards(shuffledVideos);
                     loadMoreBtn.style.display = 'block';
                 } else {
                     if (!append) videoGrid.innerHTML = '<p style="padding:20px; color:#71717a;">ဗီဒီယို ရှာမတွေ့ပါ။</p>';
@@ -445,11 +492,11 @@
         } 
 
         function loadMore() {
-            page++;
+            page++; // Increments naturally when clicking load more
             fetchVideos(currentQuery, true);
         } 
 
-        // UPDATED: LocalStorage Key unique to Project 2 (Luxury Gold Edition)
+        // LocalStorage Key unique to Project 2 (Luxury Gold Edition)
         const entryModal = document.getElementById('entryModal');
         const agreeBtn = document.getElementById('agreeBtn');
         const seen = localStorage.getItem('pyawpyawgyi:gold_premium_agree'); 
@@ -461,6 +508,7 @@
             entryModal.style.display = 'none';
         }); 
 
+        // Initial Load
         fetchVideos('myanmar', false);
     </script> 
 
