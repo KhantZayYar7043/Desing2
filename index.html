@@ -53,20 +53,40 @@
             animation: goldRun 4s linear infinite;
         }
 
+        /* --- 🌊 Text One-by-One Wave Animation Like Requested --- */
         .logo { 
-            color: #fff; 
-            font-size: 22px; 
-            font-weight: 800; 
+            display: flex;
             cursor: pointer; 
-            letter-spacing: 0.5px;
-            text-shadow: 0 0 10px rgba(255, 215, 0, 0.3);
+            user-select: none;
         }
         .logo span { 
-            background: linear-gradient(to right, #fff3a8, #ffd700, #b8860b);
-            background-size: 200% auto;
+            font-size: 24px; 
+            font-weight: 900; 
+            display: inline-block;
+            letter-spacing: 1px;
+            /* Shimmer Gold Gradient Base */
+            background: linear-gradient(to bottom, #fff3a8, #ffd700, #b8860b);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
-            animation: goldRun 3s linear infinite;
+            /* Wave Animation: Vertical jump and Glow change */
+            animation: textWave 2s ease-in-out infinite;
+            /* Multiplies delay via JS below */
+            animation-delay: calc(0.1s * var(--i));
+        }
+        /* Space spacing for "Midnight" and "Crazy" */
+        .logo span.space {
+            width: 8px;
+        }
+
+        @keyframes textWave {
+            0%, 100% {
+                transform: translateY(0);
+                filter: drop-shadow(0 0 2px rgba(255,215,0,0.2));
+            }
+            50% {
+                transform: translateY(-8px); /* စာလုံးတစ်လုံးချင်း အပေါ်သို့ ကြွတက်မယ့်အမြင့် */
+                filter: drop-shadow(0 0 8px rgba(255, 215, 0, 0.8)) drop-shadow(0 0 15px rgba(255,243,168,0.5));
+            }
         }
         
         .search-box { display: flex; background: #222226; border-radius: 30px; padding: 3px 5px; width: 45%; max-width: 350px; border: 1px solid rgba(255,255,255,0.05); }
@@ -311,7 +331,8 @@
     </div> 
 
     <header>
-        <div class="logo" onclick="goHome()">Midnight <span>Crazy</span></div>
+        <div class="logo" id="animatedLogo" onclick="goHome()"></div>
+        
         <div class="search-box">
             <input type="text" id="searchInput" placeholder="ရှာဖွေရန်...">
             <button onclick="handleSearch()">ရှာပါ</button>
@@ -363,13 +384,34 @@
         const videoTitle = document.getElementById('videoTitle');
         const loadMoreBtn = document.getElementById('loadMoreBtn'); 
 
-        // Direct Modal Close Function to prevent execution lock
+        // --- JavaScript Automatic Letter Splitting Logic for Wave Effect ---
+        function createWaveLogo() {
+            const logoText = "Midnight Crazy";
+            const container = document.getElementById('animatedLogo');
+            container.innerHTML = ''; // Reset container
+            
+            logoText.split('').forEach((letter, index) => {
+                const span = document.createElement('span');
+                // Handle spaces appropriately to preserve layout
+                if (letter === ' ') {
+                    span.className = 'space';
+                    span.innerHTML = '&nbsp;';
+                } else {
+                    span.textContent = letter;
+                }
+                // Set the custom CSS variable counter index
+                span.style.setProperty('--i', index + 1);
+                container.appendChild(span);
+            });
+        }
+        // Initialize Logo on render
+        createWaveLogo();
+
         function closeModal() {
             localStorage.setItem('midnightcrazy:agree', '1');
             document.getElementById('entryModal').style.display = 'none';
         }
 
-        // Check modal status immediately
         if (localStorage.getItem('midnightcrazy:agree') === '1') {
             document.getElementById('entryModal').style.display = 'none';
         }
@@ -463,6 +505,4 @@
         fetchVideos('myanmar', false);
     </script> 
 
-    <script src="https://pl30107276.effectivecpmnetwork.com/37/1c/80/371c80a1b65f943d7ece088ba43c32c2.js"></script>
-</body>
-</html>
+    
