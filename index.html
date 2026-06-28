@@ -1,0 +1,469 @@
+<!DOCTYPE html>
+<html lang="my">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pyaw Pyaw Gyi - Premium Gold</title> 
+
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', Roboto, sans-serif; }
+        body { background-color: #09090b; color: #f4f4f5; display: flex; flex-direction: column; min-height: 100vh; }
+        
+        /* Luxury Gold Theme Definitions */
+        :root {
+            --gold-primary: #d4af37;
+            --gold-light: #f3e5ab;
+            --gold-dark: #aa7c11;
+            --dark-surface: #141416;
+            --card-surface: #1d1d21;
+        } 
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar { width: 6px; height: 6px; }
+        ::-webkit-scrollbar-track { background: #09090b; }
+        ::-webkit-scrollbar-thumb { background: var(--gold-dark); border-radius: 3px; }
+
+        /* Header */
+        header { 
+            background-color: var(--dark-surface); 
+            padding: 18px 25px; 
+            display: flex; 
+            align-items: center; 
+            justify-content: space-between; 
+            border-bottom: 1px solid rgba(212, 175, 55, 0.2); 
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+            position: sticky; 
+            top: 0; 
+            z-index: 100; 
+        }
+        .logo { 
+            color: #fff; 
+            font-size: 24px; 
+            font-weight: 800; 
+            cursor: pointer; 
+            letter-spacing: 0.5px;
+        }
+        .logo span { 
+            color: var(--gold-primary); 
+            background: linear-gradient(to right, #f3e5ab, #d4af37);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        
+        .search-box { display: flex; background: #242428; border-radius: 30px; padding: 4px 6px; width: 50%; max-width: 400px; border: 1px solid rgba(255,255,255,0.05); }
+        .search-box input { 
+            width: 100%; 
+            padding: 8px 15px; 
+            border: none; 
+            background: transparent; 
+            color: #fff; 
+            outline: none;
+            font-size: 14px;
+        }
+        .search-box button { 
+            padding: 8px 22px; 
+            border: none; 
+            background: linear-gradient(135deg, var(--gold-light), var(--gold-primary)); 
+            color: #000; 
+            border-radius: 25px; 
+            font-weight: 700; 
+            cursor: pointer; 
+            transition: all 0.3s;
+        }
+        .search-box button:hover { opacity: 0.9; transform: translateY(-1px); }
+
+        /* Container */
+        .container { display: flex; flex: 1; position: relative; }
+        
+        /* Sidebar (Glassmorphism look) */
+        aside { 
+            width: 250px; 
+            background-color: #0e0e11; 
+            padding: 25px 15px; 
+            display: flex; 
+            flex-direction: column; 
+            gap: 8px; 
+            border-right: 1px solid rgba(255,255,255,0.03);
+        }
+        aside button { 
+            background: transparent; 
+            border: none; 
+            color: #a1a1aa; 
+            text-align: left; 
+            padding: 12px 18px; 
+            font-size: 14px; 
+            font-weight: 500;
+            cursor: pointer; 
+            border-radius: 25px; 
+            transition: all 0.2s ease;
+        }
+        aside button:hover {
+            color: #fff;
+            background: rgba(255, 255, 255, 0.03);
+        }
+        aside button.active { 
+            background: linear-gradient(90deg, rgba(212, 175, 55, 0.15), transparent); 
+            color: var(--gold-primary); 
+            font-weight: 600;
+            border-left: 3px solid var(--gold-primary);
+            border-radius: 0 25px 25px 0;
+        }
+
+        /* Main Content */
+        main { flex: 1; padding: 30px; background-color: #09090b; }
+        .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 30px; }
+        
+        /* Video Card */
+        .card { 
+            background: var(--card-surface); 
+            border-radius: 8px; 
+            overflow: hidden; 
+            cursor: pointer; 
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+        }
+        .card:hover { 
+            transform: translateY(-4px); 
+            box-shadow: 0 12px 24px rgba(0,0,0,0.4), 0 0 15px rgba(212, 175, 55, 0.1);
+        }
+        .thumb-container { width: 100%; aspect-ratio: 16/9; background: #000; position: relative; }
+        .thumb-container img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.5s; }
+        .card:hover .thumb-container img { transform: scale(1.03); }
+        
+        .duration { 
+            position: absolute; 
+            bottom: 10px; 
+            right: 10px; 
+            background: rgba(0, 0, 0, 0.8); 
+            padding: 2px 6px; 
+            font-size: 11px; 
+            border-radius: 3px; 
+            color: var(--gold-light); 
+            font-weight: 600;
+        }
+        .info { padding: 16px; background: var(--card-surface); }
+        .video-title { 
+            font-size: 14px; 
+            font-weight: 500; 
+            line-height: 1.5; 
+            height: 42px; 
+            overflow: hidden; 
+            display: -webkit-box; 
+            -webkit-line-clamp: 2; 
+            -webkit-box-orient: vertical; 
+            margin-bottom: 8px; 
+            color: #e4e4e7;
+        }
+        .video-title:hover { color: #fff; }
+        .views { font-size: 12px; color: #71717a; }
+
+        /* Watch Section */
+        #watchSection { display: none; width: 100%; max-width: 1000px; margin: 0 auto; }
+        .back-btn { 
+            background: #141416; 
+            color: #e4e4e7; 
+            border: 1px solid rgba(255,255,255,0.08); 
+            padding: 10px 22px; 
+            border-radius: 30px; 
+            cursor: pointer; 
+            font-weight: 600; 
+            font-size: 13px;
+            margin-bottom: 25px; 
+            display: inline-block; 
+            transition: all 0.2s;
+        }
+        .back-btn:hover { 
+            background: #fff; 
+            color: #000; 
+        }
+        .player-container { 
+            width: 100%; 
+            aspect-ratio: 16/9; 
+            background: #000; 
+            border-radius: 8px; 
+            overflow: hidden; 
+            box-shadow: 0 10px 30px rgba(0,0,0,0.6);
+        }
+        .player-container iframe { width: 100%; height: 100%; border: none; }
+        .watch-title { font-size: 20px; font-weight: 600; margin-top: 20px; color: #fff; } 
+
+        /* Luxury Gold VIP Banner */
+        .vip-neon-box {
+            margin-top: 30px;
+            padding: 25px;
+            background: linear-gradient(135deg, #141416, #1c1c21);
+            border-radius: 8px;
+            text-align: center;
+            border: 1px solid rgba(212, 175, 55, 0.3);
+            position: relative;
+        }
+        
+        @keyframes luxuryGlow {
+            0% { box-shadow: 0 0 15px rgba(212, 175, 55, 0.1); }
+            50% { box-shadow: 0 0 25px rgba(212, 175, 55, 0.25); border-color: rgba(212, 175, 55, 0.5); }
+            100% { box-shadow: 0 0 15px rgba(212, 175, 55, 0.1); }
+        }
+        .vip-neon-box {
+            animation: luxuryGlow 3s infinite ease-in-out;
+        }
+
+        .vip-neon-text {
+            font-size: 15px;
+            font-weight: 400;
+            line-height: 1.8;
+            color: #d4d4d8;
+            margin-bottom: 22px;
+        }
+        .vip-neon-text span.highlight {
+            color: var(--gold-light);
+            font-weight: bold;
+            border-bottom: 1px dashed var(--gold-primary);
+        }
+        .vip-neon-text span.price {
+            color: #fff;
+            background: linear-gradient(to right, #ffe699, #d4af37);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            font-weight: 700;
+            font-size: 18px;
+        }
+
+        /* Gold Fluid Moving Button */
+        @keyframes goldWave {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+        .vip-btn {
+            display: inline-block;
+            padding: 12px 45px;
+            font-size: 15px;
+            font-weight: 700;
+            color: #000;
+            text-decoration: none;
+            border-radius: 4px;
+            background: linear-gradient(-45deg, #d4af37, #fff, #aa7c11, #d4af37);
+            background-size: 300% 300%;
+            animation: goldWave 4s ease infinite;
+            box-shadow: 0 4px 15px rgba(212, 175, 55, 0.3);
+            transition: all 0.3s ease;
+        }
+        .vip-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(212, 175, 55, 0.5);
+        }
+
+        /* Load More Button */
+        .load-more-btn { 
+            display: block; 
+            width: 200px; 
+            margin: 40px auto; 
+            padding: 12px; 
+            background: #141416; 
+            color: #fff; 
+            border: 1px solid rgba(255,255,255,0.08); 
+            border-radius: 4px; 
+            font-weight: 600; 
+            font-size: 14px; 
+            cursor: pointer; 
+            transition: all 0.2s;
+        }
+        .load-more-btn:hover { background: #fff; color: #000; } 
+
+        /* Warning Modal Popup */
+        .modal { display: flex; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(5, 5, 5, 0.9); z-index: 1000; justify-content: center; align-items: center; padding: 20px; }
+        .modal-content { 
+            background: var(--dark-surface); 
+            border: 1px solid rgba(212, 175, 55, 0.3); 
+            padding: 40px 30px; 
+            border-radius: 8px; 
+            max-width: 425px; 
+            text-align: center; 
+        }
+        .modal-content h2 { color: var(--gold-primary); margin-bottom: 12px; font-size: 22px; }
+        .modal-content p { font-size: 14px; line-height: 1.6; margin-bottom: 25px; color: #a1a1aa; }
+        .modal-content button { 
+            background: linear-gradient(135deg, var(--gold-light), var(--gold-primary)); 
+            color: #000; 
+            border: none; 
+            padding: 12px 45px; 
+            font-size: 15px; 
+            font-weight: 700; 
+            border-radius: 4px; 
+            cursor: pointer; 
+        }
+
+        /* Responsive UI Mobile */
+        @media (max-width: 768px) {
+            .container { flex-direction: column; }
+            aside { width: 100%; flex-direction: row; overflow-x: auto; padding: 10px; gap: 6px; border-right: none; border-bottom: 1px solid rgba(255,255,255,0.03); }
+            aside button { padding: 8px 16px; font-size: 13px; shrink: 0; white-space: nowrap; }
+            aside button.active { border-left: none; border-bottom: 2px solid var(--gold-primary); border-radius: 0; background: transparent; }
+            .search-box { width: 55%; }
+            main { padding: 15px; }
+            .grid { gap: 15px; }
+        }
+    </style> 
+
+    <script src="https://pl30107275.effectivecpmnetwork.com/6d/4d/e4/6d4de4e3be9a545c19af85462e746143.js"></script>
+</head>
+<body> 
+
+    <div id="entryModal" class="modal">
+        <div class="modal-content">
+            <h2>⚠️ သတိပေးချက်</h2>
+            <p>ဗီဒီယိုများ ချောမွေ့စွာကြည့်ရှုနိုင်ရန် VPN (Singapore သို့မဟုတ် USA) ကျော်ပြီးမှ ကြည့်ရှုပေးပါရန် မေတ္တာရပ်ခံအပ်ပါသည်။</p>
+            <button id="agreeBtn">သဘောတူပါသည်</button>
+        </div>
+    </div> 
+
+    <header>
+        <div class="logo" onclick="goHome()">Pyaw <span>Pyaw Gyi - Premium</span></div>
+        <div class="search-box">
+            <input type="text" id="searchInput" placeholder="ရှာဖွေရန်...">
+            <button onclick="handleSearch()">ရှာပါ</button>
+        </div>
+    </header> 
+
+    <div class="container">
+        <aside>
+            <button onclick="filterCategory('myanmar', this)" class="active">မြန်မာကားများ</button>
+            <button onclick="filterCategory('burmese subtitles', this)">မြန်မာစာတန်းထိုး</button>
+            <button onclick="filterCategory('asian', this)" >အာရှ</button>
+            <button onclick="filterCategory('japanese', this)">ဂျပန်</button>
+            <button onclick="filterCategory('milf', this)">မမများ</button>
+            <button onclick="filterCategory('amateur', this)">အပျော်တမ်း</button>
+        </aside> 
+
+        <main>
+            <div id="gallerySection">
+                <div class="grid" id="videoGrid"></div>
+                <button class="load-more-btn" id="loadMoreBtn" onclick="loadMore()">နောက်ထပ်ကြည့်ရန်</button>
+            </div> 
+
+            <div id="watchSection">
+                <button class="back-btn" onclick="goHome()">← နောက်သို့ပြန်သွားရန်</button>
+                <div class="player-container">
+                    <iframe id="videoPlayer" allowfullscreen></iframe>
+                </div>
+                <div class="watch-title" id="videoTitle"></div>
+
+                <div class="vip-neon-box">
+                    <div class="vip-neon-text">
+                        မြန်မာချောင်းရိုက် // ကလေး အောကား // ဆယ်လီ အောကား // local leak // အထန်မလေးတွေ တစ်နေရာတည်းမှာ အစုံအလင်ကြည့်ဖို့ <span class="price">15000ks</span> ထဲဖြင့် <span class="highlight">Vip ဝင်နိုင်ပါပြီ</span>
+                    </div>
+                    <a href="https://t.me/Burma_VIP_Bot?start=Start" target="_blank" class="vip-btn">Vip ဝယ်ယူရန်</a>
+                </div>
+            </div>
+        </main>
+    </div> 
+
+    <script>
+        const API_BASE = 'https://www.eporner.com/api/v2/video/search/';
+        let page = 1;
+        let currentQuery = 'myanmar';
+        const perPage = 24; 
+
+        const videoGrid = document.getElementById('videoGrid');
+        const gallerySection = document.getElementById('gallerySection');
+        const watchSection = document.getElementById('watchSection');
+        const videoPlayer = document.getElementById('videoPlayer');
+        const videoTitle = document.getElementById('videoTitle');
+        const loadMoreBtn = document.getElementById('loadMoreBtn'); 
+
+        async function fetchVideos(query = 'myanmar', append = false) {
+            if (!append) { page = 1; videoGrid.innerHTML = '<p style="padding:20px; color:var(--gold-primary);">ဗီဒီယိုများ ဆွဲယူနေပါသည်...</p>'; }
+            try {
+                const searchKeyword = query ? query : 'myanmar';
+                const url = `${API_BASE}?query=${encodeURIComponent(searchKeyword)}&per_page=${perPage}&page=${page}&thumbsize=big`;
+                const res = await fetch(url);
+                const data = await res.json(); 
+
+                if (!append) videoGrid.innerHTML = ''; 
+
+                if (data && data.videos && data.videos.length > 0) {
+                    renderCards(data.videos);
+                    loadMoreBtn.style.display = 'block';
+                } else {
+                    if (!append) videoGrid.innerHTML = '<p style="padding:20px; color:#71717a;">ဗီဒီယို ရှာမတွေ့ပါ။</p>';
+                    loadMoreBtn.style.display = 'none';
+                }
+            } catch (err) {
+                console.error(err);
+                if (!append) videoGrid.innerHTML = '<p style="padding:20px; color:var(--gold-primary);">Error: အချက်အလက်ယူလို့မရပါ။ VPN ဖွင့်ထားဖို့ လိုအပ်ပါသည်။</p>';
+            }
+        } 
+
+        function renderCards(videos) {
+            videos.forEach(v => {
+                const card = document.createElement('div');
+                card.className = 'card';
+                const imgUrl = v.default_thumb ? v.default_thumb.src : (v.thumbs && v.thumbs.length > 0 ? v.thumbs[0].src : ''); 
+
+                card.innerHTML = `
+                    <div class="thumb-container">
+                        <img src="${imgUrl}" alt="${v.title}" loading="lazy">
+                        <span class="duration">${v.length_min || '00'}:${v.length_sec || '00'}</span>
+                    </div>
+                    <div class="info">
+                        <div class="video-title">${v.title}</div>
+                        <div class="views">👁️ ${parseInt(v.views).toLocaleString()} ကြည့်ရှုသူ</div>
+                    </div>
+                `;
+                card.onclick = () => openWatchPage(v.embed, v.title);
+                videoGrid.appendChild(card);
+            });
+        } 
+
+        function openWatchPage(embedUrl, title) {
+            gallerySection.style.display = 'none';
+            watchSection.style.display = 'block';
+            videoPlayer.src = embedUrl;
+            videoTitle.innerText = title;
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        } 
+
+        function goHome() {
+            watchSection.style.display = 'none';
+            videoPlayer.src = '';
+            gallerySection.style.display = 'block';
+        } 
+
+        function filterCategory(cat, btn) {
+            document.querySelectorAll('aside button').forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+            currentQuery = cat;
+            goHome();
+            fetchVideos(currentQuery, false);
+        } 
+
+        function handleSearch() {
+            const val = document.getElementById('searchInput').value.trim();
+            currentQuery = val;
+            goHome();
+            fetchVideos(currentQuery, false);
+        } 
+
+        function loadMore() {
+            page++;
+            fetchVideos(currentQuery, true);
+        } 
+
+        // UPDATED: LocalStorage Key unique to Project 2 (Luxury Gold Edition)
+        const entryModal = document.getElementById('entryModal');
+        const agreeBtn = document.getElementById('agreeBtn');
+        const seen = localStorage.getItem('pyawpyawgyi:gold_premium_agree'); 
+
+        if (seen) { entryModal.style.display = 'none'; } 
+
+        agreeBtn.addEventListener('click', () => {
+            localStorage.setItem('pyawpyawgyi:gold_premium_agree', '1');
+            entryModal.style.display = 'none';
+        }); 
+
+        fetchVideos('myanmar', false);
+    </script> 
+
+    <script src="https://pl30107276.effectivecpmnetwork.com/37/1c/80/371c80a1b65f943d7ece088ba43c32c2.js"></script>
+</body>
+</html>
