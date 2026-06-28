@@ -21,13 +21,13 @@
         /* Custom Scrollbar */
         ::-webkit-scrollbar { width: 6px; height: 6px; }
         ::-webkit-scrollbar-track { background: #060608; }
-        ::-webkit-scrollbar-thumb { background: var(--gold-dark); border-radius: 3px; }
+        ::-webkit-scrollbar-thumb { background: var(--gold-dark); border-radius: 3px; } 
 
         @keyframes goldRun {
             0% { background-position: 0% 50%; }
             50% { background-position: 100% 50%; }
             100% { background-position: 0% 50%; }
-        }
+        } 
 
         /* Header */
         header { 
@@ -51,7 +51,7 @@
             background: linear-gradient(90deg, #b8860b, #ffd700, #fff3a8, #b8860b, #ffd700);
             background-size: 300% 100%;
             animation: goldRun 4s linear infinite;
-        }
+        } 
 
         /* --- 🌊 Text One-by-One Wave Animation Like Requested --- */
         .logo { 
@@ -76,7 +76,7 @@
         /* Space spacing for "Midnight" and "Crazy" */
         .logo span.space {
             width: 8px;
-        }
+        } 
 
         @keyframes textWave {
             0%, 100% {
@@ -110,7 +110,7 @@
             font-weight: 700; 
             cursor: pointer; 
             font-size: 13px;
-        }
+        } 
 
         /* Container */
         .container { display: flex; flex: 1; position: relative; }
@@ -148,7 +148,7 @@
             background-size: 200% auto;
             animation: goldRun 3s linear infinite;
             box-shadow: 0 4px 12px rgba(255, 215, 0, 0.15);
-        }
+        } 
 
         /* Main Content */
         main { flex: 1; padding: 20px; background-color: #060608; }
@@ -216,7 +216,7 @@
             color: #efeff1;
         }
         .card:hover .video-title { color: #ffd700; }
-        .views { font-size: 11.5px; color: #9a9a9a; }
+        .views { font-size: 11.5px; color: #9a9a9a; } 
 
         /* Watch Section */
         #watchSection { display: none; width: 100%; max-width: 900px; margin: 0 auto; }
@@ -258,7 +258,7 @@
             content: ''; position: absolute; top: 0; left: 0; right: 0; bottom: 0; border-radius: 12px; padding: 1px;
             background: linear-gradient(90deg, #b8860b, #ffd700, #fff3a8, #b8860b); background-size: 300% 100%; animation: goldRun 3s linear infinite;
             -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0); -webkit-mask-composite: xor; mask-composite: exclude; pointer-events: none;
-        }
+        } 
 
         .vip-neon-text { font-size: 14px; line-height: 1.7; color: #d4d4d8; margin-bottom: 18px; }
         .vip-neon-text span.highlight { color: #fff3a8; font-weight: bold; border-bottom: 1px dashed #ffd700; }
@@ -266,14 +266,14 @@
             background: linear-gradient(to right, #fff, #ffd700, #fff3a8); background-size: 200% auto;
             -webkit-background-clip: text; -webkit-text-fill-color: transparent; animation: goldRun 3s linear infinite;
             font-weight: 800; font-size: 18px;
-        }
+        } 
 
         .vip-btn {
             display: inline-block; padding: 12px 45px; font-size: 14px; font-weight: 800; color: #000; text-decoration: none; border-radius: 6px;
             background: linear-gradient(-45deg, #ffd700, #fff, #b8860b, #ffd700); background-size: 300% 300%; animation: goldRun 3s linear infinite;
             box-shadow: 0 0 15px rgba(255, 215, 0, 0.3); transition: transform 0.2s;
         }
-        .vip-btn:hover { transform: translateY(-2px); box-shadow: 0 0 20px rgba(255, 215, 0, 0.5); }
+        .vip-btn:hover { transform: translateY(-2px); box-shadow: 0 0 20px rgba(255, 215, 0, 0.5); } 
 
         /* Load More Button */
         .load-more-btn { 
@@ -295,7 +295,7 @@
         .modal-content button { 
             background: linear-gradient(135deg, #fff3a8, #ffd700, #b8860b); background-size: 200% auto; animation: goldRun 3s linear infinite;
             color: #000; border: none; padding: 10px 40px; font-size: 14px; font-weight: 700; border-radius: 6px; cursor: pointer; outline: none;
-        }
+        } 
 
         /* Responsive UI Mobile - Replit Grid Layout */
         @media (max-width: 768px) {
@@ -318,7 +318,7 @@
         }
     </style> 
 
-    <script src="https://pl30107275.effectivecpmnetwork.com/6d/4d/e4/6d4de4e3be9a545c19af85462e746143.js"></script>
+    <script src="https://pl30109446.effectivecpmnetwork.com/6b/d2/fa/6bd2fad5225588becbb0d88cb0aa6e92.js"></script>
 </head>
 <body> 
 
@@ -359,7 +359,7 @@
                 <div class="player-container">
                     <iframe id="videoPlayer" allowfullscreen></iframe>
                 </div>
-                <div class="watch-title" id="videoTitle"></div>
+                <div class="watch-title" id="videoTitle"></div> 
 
                 <div class="vip-neon-box">
                     <div class="vip-neon-text">
@@ -392,33 +392,30 @@
             
             logoText.split('').forEach((letter, index) => {
                 const span = document.createElement('span');
-                // Handle spaces appropriately to preserve layout
                 if (letter === ' ') {
                     span.className = 'space';
                     span.innerHTML = '&nbsp;';
                 } else {
                     span.textContent = letter;
                 }
-                // Set the custom CSS variable counter index
                 span.style.setProperty('--i', index + 1);
                 container.appendChild(span);
             });
         }
-        // Initialize Logo on render
-        createWaveLogo();
+        createWaveLogo(); 
 
         function closeModal() {
             localStorage.setItem('midnightcrazy:agree', '1');
             document.getElementById('entryModal').style.display = 'none';
-        }
+        } 
 
         if (localStorage.getItem('midnightcrazy:agree') === '1') {
             document.getElementById('entryModal').style.display = 'none';
-        }
+        } 
 
         function getRandomPage() {
             return Math.floor(Math.random() * 15) + 1;
-        }
+        } 
 
         async function fetchVideos(query = 'myanmar', append = false) {
             if (!append) { 
@@ -505,4 +502,6 @@
         fetchVideos('myanmar', false);
     </script> 
 
-    
+    <script src="https://pl30109447.effectivecpmnetwork.com/c1/c2/00/c1c2006be2f5f7bbee36c64cd9a3da67.js"></script>
+</body>
+</html>
