@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Pyaw Pyaw Gyi - Premium Gold</title> 
+    <title>Midnight Crazy</title> 
 
     <style>
         * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', Roboto, sans-serif; }
@@ -302,7 +302,6 @@
 </head>
 <body> 
 
-    <!-- Warning Modal Popup - Added Direct onclick function -->
     <div id="entryModal" class="modal">
         <div class="modal-content">
             <h2>⚠️ သတိပေးချက်</h2>
@@ -312,7 +311,7 @@
     </div> 
 
     <header>
-        <div class="logo" onclick="goHome()">Pyaw <span>Pyaw Gyi - Premium</span></div>
+        <div class="logo" onclick="goHome()">Midnight <span>Crazy</span></div>
         <div class="search-box">
             <input type="text" id="searchInput" placeholder="ရှာဖွေရန်...">
             <button onclick="handleSearch()">ရှာပါ</button>
@@ -366,12 +365,12 @@
 
         // Direct Modal Close Function to prevent execution lock
         function closeModal() {
-            localStorage.setItem('pyawpyawgyi:gold_premium_agree', '1');
+            localStorage.setItem('midnightcrazy:agree', '1');
             document.getElementById('entryModal').style.display = 'none';
         }
 
         // Check modal status immediately
-        if (localStorage.getItem('pyawpyawgyi:gold_premium_agree') === '1') {
+        if (localStorage.getItem('midnightcrazy:agree') === '1') {
             document.getElementById('entryModal').style.display = 'none';
         }
 
